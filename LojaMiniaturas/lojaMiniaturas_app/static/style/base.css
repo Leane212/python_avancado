@@ -1,16 +1,17 @@
 
 #logo{
-    position: absolute; 
-	left: 40%; 
+    position: absolute;
+	left: 37%; 
 	top: 30px; 
 }
-
-
-
 
 .d-grid{
     
     display: flex;
     justify-content: center; /* Alinha o conteúdo ao centro horizontalmente */
     margin-top: 20px;
+}
+
+.d-md-flex{
+    background-color: rgba(11, 207, 207, 0.651);
 }
