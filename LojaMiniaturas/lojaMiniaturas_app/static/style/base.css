@@ -1,20 +1,16 @@
-header {
-    font-family: "Just Me Again Down Here", cursive;
-    font-size: 96px;
+
+#logo{
+    position: absolute; 
+	left: 40%; 
+	top: 30px; 
 }
 
-h1 {
-    font-family: "Shadows Into Light", cursive;
-    font-weight: 400;
-    font-style: normal;
-    text-align: center;
-}
 
-body {
-    background-image: url("../img/miniaturas_panfleto.png");
-   
-}
 
-.logo{
+
+.d-grid{
     
+    display: flex;
+    justify-content: center; /* Alinha o conteúdo ao centro horizontalmente */
+    margin-top: 20px;
 }
