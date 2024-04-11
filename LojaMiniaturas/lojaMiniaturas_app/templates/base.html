@@ -24,8 +24,9 @@
       
       .bnt {
         text align : center;
-        
       }
+      
+
   </style>
 </head>
 
@@ -34,7 +35,7 @@
     
     <div id="fundo">
       {% load static %}
-        <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive w-100  object-fit-cover" height="290px">
+        <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive w-100  object-fit-cover" height="290">
     </div>
     
     <div class="gap-2 justify-content-md-end" >
@@ -45,7 +46,7 @@
     
     <div id="logo">
       {% load static %}
-      <img src="{% static 'logo.png' %}" alt="logo" class="img-responsive w-400 object-fit-coverh" height="400px"  >
+      <img src="{% static 'logo.png' %}" alt="logo" class="img-responsive w-100 object-fit-cover img-container" height="400px"  >
     </div>
 
   </div>
@@ -96,7 +97,7 @@
     <div class="card-body">
       <h5 class="card-title"> {{prod.nome}} </h5>
       <p class="card-descricao"> {{prod.descricao}}</p>
-      <a href="" class="btn btn-primary float-end">Por {{prod.preco}}</a>
+      <a href="" class="btn btn-primary">Por {{prod.preco}}</a>
     </div>
     </div>
 

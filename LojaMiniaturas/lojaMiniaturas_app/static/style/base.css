@@ -1,11 +1,11 @@
 #logo{
     position: absolute;
-	left: 37%; 
-	top: 30px; 
+	left: 37%;
+	top: 20px;
+   
 }
 
 .d-grid{
-    
     display: flex;
     justify-content: center; 
     margin-top: 20px;
@@ -23,20 +23,11 @@
     background-color: rgba(10, 150, 150, 0.651);
 }
 
-.imagem{
-    position: absolute;
-	width: 100%;
-    height: 22%;
-    background-size: cover;
-	 
-}
 
 .text-center{
     position: absolute;
     top: 1650px;
     left: 40%;
-	
-	 
 }
 
 #footerC{
@@ -46,18 +37,22 @@
 }
 
 #footer{
-
+    
     background-repeat: no-repeat;
     background-size: cover;
     
 }
-.bnt {
-    text-align : center;
-    color: orange;
-
-  }
-
 .mb-3 {
     margin: 50px;
     width: 50px;
+}
+.img-responsive {
+    max-width: 100%;
+}
+
+.imagem{
+    position: absolute;
+    width: 100%;
+    height: 22%;
+    background-size: cover;
 }
