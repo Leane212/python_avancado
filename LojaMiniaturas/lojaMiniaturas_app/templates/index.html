@@ -1,17 +1,5 @@
-{% extends "base.html" %}
+{% extends 'base.htmal'%}
 
-{% block conteudo %}
-    {%for car in carro %}
-    <div class="card mx-3 mb-3" style="width: 18rem;">
-        {% load static %}
-        <img src="{% static 'Miniatura-Carro.png' %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"> {{car}} </h5>
-          <p class="card-text"> {{ref.carro}}</p>
-          <a href="{% url 'carro' car.id %}" class="btn btn-primary float-end">Por {{car.preco}}</a>
-        </div>
-      </div>
-    {% empty %}
-      <div> Ainda não há produtos cadastrados. </div>
-    {% endfor %}
-{% endblock conteudo %}
+{%block conteudo%}
+
+{%endblock conteudo%}

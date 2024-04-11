@@ -1,9 +1,8 @@
 from django.contrib import admin
-from lojaMiniaturas_app.models import *
+from lojaMiniaturas_app.models import Produto
 
-admin.site.register(Carro)
-admin.site.register(Boneca)
-admin.site.register(FunkoPop)
+admin.site.register(Produto)
+
 
 
 

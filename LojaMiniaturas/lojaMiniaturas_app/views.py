@@ -1,23 +1,16 @@
-from multiprocessing import context
 from django.shortcuts import render
-from lojaMiniaturas_app.models import *
+from lojaMiniaturas_app.models import Produto
 
 
-def home(request):
-    return render(request, 'base.html')
 
-def carro (request):
-    carros = Carro.objects.order_by('id')
-    context - {'carros': carros}
-    return render(request, 'index.html', context)
-
-def boneca (request):
-    boneca = Boneca.objects.order_by('id')
-    context - {'boneca': boneca}
+def home (request):
+    produto = Produto.objects.order_by('id')
+    context = {'produto': produto}
     return render(request, 'base.html', context)
 
-def funkoPop (request):
-    funcoPop = FunkoPop.objects.order_by('id')
-    context - {'funcopop': funkoPop}
-    return render(request, 'base.html', context)
+def aloja(request):
+    return render(request, 'aloja.html')
 
+def regras(request):
+    return render(request, 'regras.html')
+    

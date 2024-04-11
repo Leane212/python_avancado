@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="utf-8">
@@ -11,7 +11,19 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'style/base.css' %}">
+    <style>
 
+      .container-produto{
+        height : 100%;
+        width: 100%;
+        margin: 70px;
+    
+      }
+      .card {
+          flex-wrap: wrap;
+          display: inline-block
+      }
+      </style>
 </head>
 
 <body>
@@ -19,7 +31,7 @@
     
     <div id="fundo">
       {% load static %}
-        <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive" width="100%" height="290px">
+        <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive w-100  object-fit-cover" height="290px">
     </div>
     
     <div class="gap-2 justify-content-md-end" >
@@ -30,7 +42,7 @@
     
     <div id="logo">
       {% load static %}
-      <img src="{% static 'LOGOSITEBRANCO.png' %}" width="400px"  height="400px" alt="logo" class="img-responsive">
+      <img src="{% static 'logo.png' %}" alt="logo" class="img-responsive w-400 object-fit-coverh" height="400px"  >
     </div>
 
 
@@ -39,7 +51,7 @@
   
   <nav class="navbar navbar-expand-lg bg-body-tertiary" >
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Regras de Funcionamento</a>
+      <a class="navbar-brand" href="{% url 'regras' %}">Regras de Funcionamento</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -59,7 +71,7 @@
             <a class="nav-link active" href="#">Novidade</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">A Loja</a>
+            <a class="nav-link active" href="{% url 'aloja' %}">A Loja</a>
           </li>
           
         </ul>
@@ -70,23 +82,38 @@
       </div>
     </div>
   </nav>
-
-  <div class="container-fluid" style="height: 80rem; background-color: white;">
-
-  </div>
+<div calss = "container-produto">
   <main>
     {% block conteudo %}
-    {% endblock conteudo %}
+    {% for prod in produto %}
+   
+    <div class="card mx-3 mb-3" style="width: 18rem;">
+    {% load static %}
+    <img src="{% static 'Miniatura-Carro.png' %}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"> {{prod.nome}} </h5>
+      <p class="card-descricao"> {{prod.descricao}}</p>
+      <a href="" class="btn btn-primary float-end">Por {{prod.preco}}</a>
+    </div>
+    </div>
+
+    {% empty %}
+
+    <div> Ainda não há produtos cadastrados. </div>
+
+    {% endfor %}
+    {% endblock %}
   </main>
 
   <footer>
+    
     <div id="footer">
       {% load static %}
-      <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive imagem" >
+
+      <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive imagem object-fit-cover" >
+      <h4 id="footerC"> Copyright &copy; 2024 </h4>
     </div>
-    <div class="p-4 text-center">
-      Copyright &copy; 2024
-    </div>
+
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

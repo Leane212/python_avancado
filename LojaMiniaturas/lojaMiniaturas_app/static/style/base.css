@@ -12,10 +12,11 @@
 }
 
 #botao{
-    background-color: rgba(11, 207, 207, 0.651);
+    background-color: rgba(2, 175, 175, 0.952);
     position: absolute;
 	left: 80%; 
-	top: 80px; 
+	top: 80px;
+    z-index: 500; /*isso define que o botão vai ta por cima da logo e do fundo*/
 }
 
 .btn-outline-success{
@@ -26,6 +27,7 @@
     position: absolute;
 	width: 100%;
     height: 22%;
+    background-size: cover;
 	 
 }
 
@@ -35,4 +37,16 @@
     left: 40%;
 	
 	 
+}
+
+#footerC{
+    text-align: center;
+    position: relative;
+    color: white;
+}
+
+#footer{
+
+    background-repeat: no-repeat;
+    background-size: cover;
 }
