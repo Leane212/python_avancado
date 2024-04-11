@@ -6,6 +6,7 @@ class Produto (models.Model):
     descricao = models.TextField()
     codigo = models.IntegerField()
     categoria = models.CharField(max_length = 20)
+    imagem = models.CharField(null=True, max_length=50)
 
     def __str__ (self):
         return self.nome
