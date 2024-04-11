@@ -23,7 +23,7 @@
     </div>
     
     <div class="gap-2 justify-content-md-end" >
-      <button class="btn me-md-2" type="button">Entre ou cadastre-se</button>
+      <button class="btn me-md-2" type="button" id="botao">Entre ou cadastre-se</button>
       
     </div>
     
@@ -36,9 +36,10 @@
 
     
   </div>
+  
   <nav class="navbar navbar-expand-lg bg-body-tertiary" >
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Artes em Miniaturas</a>
+      <a class="navbar-brand" href="#">Regras de Funcionamento</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,27 +47,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">CONTATO</a>
+            <a class="nav-link active" aria-current="page" href="#">Contato</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">GALERIA DO INTERNAUTA</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              PRODUTOS
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Bola</a></li>
-              <li><a class="dropdown-item" href="#">Carros</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Bonecas</a></li>
-            </ul>
+            <a class="nav-link active" href="#">Galeria do Internauta</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            <a class="nav-link active" href="#">Promoções</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Novidade</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">A Loja</a>
+          </li>
+          
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -79,9 +74,19 @@
   <div class="container-fluid" style="height: 80rem; background-color: white;">
 
   </div>
+  <main>
+    {% block conteudo %}
+    {% endblock conteudo %}
+  </main>
 
   <footer>
-    <h1>hgvvghvvg</h1>
+    <div id="footer">
+      {% load static %}
+      <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive imagem" >
+    </div>
+    <div class="p-4 text-center">
+      Copyright &copy; 2024
+    </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
