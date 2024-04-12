@@ -8,6 +8,7 @@
     
     display: flex;
     justify-content: center; 
+    justify-content: center; 
     margin-top: 20px;
 }
 
@@ -49,4 +50,30 @@
 
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#botao{
+    background-color: rgba(11, 207, 207, 0.651);
+    position: absolute;
+	left: 80%; 
+	top: 80px; 
+}
+
+.btn-outline-success{
+    background-color: rgba(10, 150, 150, 0.651);
+}
+
+.imagem{
+    position: absolute;
+	width: 100%;
+    height: 22%;
+	 
+}
+
+.text-center{
+    position: absolute;
+    top: 1650px;
+    left: 40%;
+	
+	 
 }
