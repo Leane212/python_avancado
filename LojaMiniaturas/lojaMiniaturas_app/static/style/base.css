@@ -1,11 +1,11 @@
 #logo{
     position: absolute;
-	right: 50px;
-	top: 30px;
+	right: 5%;
+	top: 20px;
     max-width: 100%;
     width: 500px;
     transform: translate(-50%, 0%);
-    object-fit: contain;
+    
 }
 
 .d-grid{
