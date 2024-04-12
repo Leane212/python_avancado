@@ -96,7 +96,7 @@
     <img src="{% static prod.imagem %}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"> {{prod.nome}} </h5>
-      <p class="card-descricao"> {{prod.descricao}}</p>
+      <p class="card-descricao"> {{prod.descricao|slice:":50"}}</p>
       <a href="" class="btn btn-primary">Por {{prod.preco}}</a>
     </div>
     </div>
