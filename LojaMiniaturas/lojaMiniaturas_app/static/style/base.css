@@ -1,13 +1,14 @@
 #logo{
     position: absolute;
-	right: 5%;
-	top: 20px;
+	right: 50%;
+	top: 30px;
     max-width: 100%;
+    transform: translate(50%, 0);
     width: 500px;
-    transform: translate(-50%, 0%);
-    
-}
-
+    max-height: 100%;
+    overflow: visible;
+    }
+   
 .d-grid{
     display: flex;
     justify-content: center; 
