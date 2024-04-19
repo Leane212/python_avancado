@@ -7,38 +7,43 @@ class Produto (models.Model):
     codigo = models.IntegerField()
     video = models.TextField(null=True)
     data_cadastro = models.DateField(null=True)
-    
-    def __str__ (self):
+    marca = models.ForeignKey("Marca", on_delete=models.CASCADE)
+    categoria = models.ForeignKey("Categoria", on_delete=models.CASCADE)
+
+    def str (self):
         return self.nome
     
 class Imagem (models.Model):
     nome = models.CharField(max_length=50)
-
-    def __str__ (self):
+    produto = models.ForeignKey("Produto", on_delete=models.CASCADE, related_name='imagens')
+    
+    def str (self):
         return self.nome
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50)
     
-    def __str__ (self):
+    def str (self):
         return self.nome
 
-class Marca (models.Model):
+class Marca(models.Model):
     nome = models.CharField(max_length=20)
     
-    def __str__ (self):
+    def str (self):
         return self.nome
 class Desconto (models.Model):
-    valor = models.DecimalField(max_digits = 6, decimal_places = 2)
+    valor = models.CharField(null=True, max_length=20)
+    data_inicial = models.DateTimeField(null=True)
+    data_final = models.DateTimeField(null=True)
+    produto = models.ForeignKey("Produto", on_delete=models.CASCADE)
     
-    def __str__ (self):
-        return self.nome
+    def str (self):
+        return self.valor
 
 class Especificacao (models.Model):
-    aviso = models.TextField()
-    recomendacao = models.TextField()
-    restricao = models.TextField()
-    origem = models.TextField()
+    nome = models.CharField(max_length=20)
+    descricao = models.TextField()
+    produto = models.ForeignKey("Produto", on_delete=models.CASCADE)
     
-    def __str__ (self):
-        return self.aviso
+    def str (self):
+        return self.nome
