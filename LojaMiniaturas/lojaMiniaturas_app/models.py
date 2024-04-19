@@ -10,26 +10,26 @@ class Produto (models.Model):
     marca = models.ForeignKey("Marca", on_delete=models.CASCADE)
     categoria = models.ForeignKey("Categoria", on_delete=models.CASCADE)
 
-    def str (self):
+    def __str__ (self):
         return self.nome
     
 class Imagem (models.Model):
     nome = models.CharField(max_length=50)
     produto = models.ForeignKey("Produto", on_delete=models.CASCADE, related_name='imagens')
     
-    def str (self):
+    def __str__ (self):
         return self.nome
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50)
     
-    def str (self):
+    def __str__ (self):
         return self.nome
 
 class Marca(models.Model):
     nome = models.CharField(max_length=20)
     
-    def str (self):
+    def __str__ (self):
         return self.nome
 class Desconto (models.Model):
     valor = models.DecimalField(max_digits = 6, decimal_places = 2)
@@ -37,7 +37,7 @@ class Desconto (models.Model):
     data_final = models.DateTimeField()
     produto = models.ForeignKey("Produto", on_delete=models.CASCADE)
     
-    def str (self):
+    def __str__ (self):
         return self.valor
 
 class Especificacao (models.Model):
@@ -45,5 +45,5 @@ class Especificacao (models.Model):
     descricao = models.TextField()
     produto = models.ForeignKey("Produto", on_delete=models.CASCADE)
     
-    def str (self):
+    def __str__ (self):
         return self.nome
