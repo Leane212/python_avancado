@@ -23,7 +23,7 @@
       }
       
       .bnt {
-        text align : center;
+        text-align : center;
       }
       
 
@@ -64,9 +64,6 @@
             <a class="nav-link active" aria-current="page" href="#">Contato</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Galeria do Internauta</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link active" href="#">Promoções</a>
           </li>
           <li class="nav-item">
@@ -87,7 +84,7 @@
       </div>
     </div>
   </nav>
-<div calss = "container-produto">
+
 
   <main>
     {% block conteudo %}
@@ -96,7 +93,9 @@
    
     <div class="card text-bg-light mb-3" style="width: 18rem;">
     {% load static %}
-    <img src="{% static prod.imagem %}" class="card-img-top" alt="...">
+    {% for imagem in prod.imagem_set %}
+    <img src="{% static prod.imagem_set %}" class="card-img-top" alt="...">
+    {%endfor%}
     <div class="card-body">
       <h5 class="card-title"> {{prod.nome}} </h5>
       <p class="card-descricao"> {{prod.descricao|slice:":50"}}</p>

@@ -5,8 +5,8 @@ class Produto (models.Model):
     preco = models.DecimalField(max_digits = 6, decimal_places = 2)
     descricao = models.TextField()
     codigo = models.IntegerField()
-    video = models.TextField(null=True)
-    data_cadastro = models.DateField(null=True)
+    video = models.TextField()
+    data_cadastro = models.DateField()
     marca = models.ForeignKey("Marca", on_delete=models.CASCADE)
     categoria = models.ForeignKey("Categoria", on_delete=models.CASCADE)
 
@@ -32,9 +32,9 @@ class Marca(models.Model):
     def str (self):
         return self.nome
 class Desconto (models.Model):
-    valor = models.CharField(null=True, max_length=20)
-    data_inicial = models.DateTimeField(null=True)
-    data_final = models.DateTimeField(null=True)
+    valor = models.DecimalField(max_digits = 6, decimal_places = 2)
+    data_inicial = models.DateTimeField()
+    data_final = models.DateTimeField()
     produto = models.ForeignKey("Produto", on_delete=models.CASCADE)
     
     def str (self):

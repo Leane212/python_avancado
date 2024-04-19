@@ -13,4 +13,3 @@ def aloja(request):
 
 def regras(request):
     return render(request, 'regras.html')
-    
