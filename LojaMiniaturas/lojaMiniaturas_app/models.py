@@ -9,6 +9,7 @@ class Produto (models.Model):
     data_cadastro = models.DateField()
     marca = models.ForeignKey("Marca", on_delete=models.CASCADE)
     categoria = models.ForeignKey("Categoria", on_delete=models.CASCADE)
+    
 
     def __str__ (self):
         return self.nome
