@@ -8,13 +8,13 @@ from django.shortcuts import render, redirect
 
 
 def home (request):
-    # produto = Produto.objects.order_by('id')
-    produto = Imagem.objects.order_by('id')
-    context = {'produto': produto}
+    produtos = Produto.objects.order_by('id')
+    #imagem = Imagem.objects.order_by('id')
+    context = {'produtos': produtos}
     return render(request, 'base.html', context)
 
-def aloja(request):
-    return render(request, 'aloja.html')
+def sobre(request):
+    return render(request, 'sobre.html')
 
 def regras(request):
     return render(request, 'regras.html')

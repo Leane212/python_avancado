@@ -1,5 +1,5 @@
 from django import forms
-from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem, Especificacao
+from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.forms.widgets import *
 
 
@@ -9,7 +9,7 @@ from django.forms.widgets import *
 class ProdutoForm (forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome','preco','descricao','codigo','video','data_cadastro','marca','categoria']
+        fields = ['nome','preco','descricao','codigo','video','data_cadastro','marca','categoria','especificacao']
         
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -45,12 +45,22 @@ class ProdutoForm (forms.ModelForm):
             {'placeholder':'Categoria',
             'class' : 'form-control'}
         )
-        
+        self.fields['especificacao'].widget.attrs.update(
+            {'placeholder':'Especificações do Produto',
+            'class' : 'form-control'}
+        )
 
 class ImagemForm(forms.ModelForm):
     class Meta:
         model = Imagem
         fields = ['nome']     
+    
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nome'].widget.attrs.update(
+            {'placeholder':'Nome do produto',
+            'class' : 'form-control'}
+        )
         
 class ContatoForm(forms.Form):
     class Meta: 
