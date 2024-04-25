@@ -61,6 +61,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
+<<<<<<< HEAD
             <a class="nav-link active" aria-current="page" href="#">Contato</a>
           </li>
           <!--
@@ -70,12 +71,29 @@
           <li class="nav-item">
             <a class="nav-link active" href="#">Novidades</a>
           </li>
+=======
+            <a class="nav-link active" aria-current="page" href="{% url 'contato' %}">Contato</a>
+          </li>
+          <!--
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Promoções</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Novidades</a>
+            </li>
+>>>>>>> origin/newLeane
           -->
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'regras' %}">Regras de Funcionamento</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'sobre' %}">Sobre</a>
+<<<<<<< HEAD
+=======
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'add_produtos' %}">Adicionar Produtos</a>
+>>>>>>> origin/newLeane
           </li>
           
         </ul>
@@ -91,19 +109,18 @@
   <main>
     {% block conteudo %}
 
-    {% for prod in produto %}
+    {% for prod in produtos %}
    
     <div class="card text-bg-light mb-3" style="width: 18rem;">
     {% load static %}
-    <!-- {% for imagem in prod.imagem_set %} -->
-    
-    
-    <!-- {%endfor%} -->
     <div class="card-body">
-      <img src="{% static prod.nome  %}" class="card-img-top" alt="...">
-      <h5 class="card-title"> {{prod.produto.nome}} </h5>
-      <p class="card-descricao"> {{prod.produto.descricao|slice:":50"}}</p>
-      <a href="" class="btn btn-primary">Por {{prod.produto.preco}}</a>
+      {%for img in prod.imagem_set%}
+        <img src="{% static img.nome %}" class="card-img-top" alt="...">
+      {%endfor%}
+      <h5 class="card-title"> {{prod.nome}} </h5>
+      <p class="card-descricao"> {{prod.descricao|slice:":50"}}</p>
+      <h6 class="card-codigo"> {{prod.codigo}} </h6>
+      <a href="" class="btn btn-primary">Por {{prod.preco}}</a>
     </div>
     </div>
 
