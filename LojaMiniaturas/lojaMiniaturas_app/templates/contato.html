@@ -1,0 +1,48 @@
+{% extends 'base.html'%}
+
+{%block conteudo%}
+
+<main>
+    <style>
+        .texto-centralizado {
+            text-align: center;
+            font-size: 1.2em;
+            color: #333; 
+        }
+        
+        .telefone {
+            font-weight: bold;
+            color: #008080; 
+        }
+    </style>
+    
+    <form action="{% url 'contato' %}" method="post" class="my-4">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-12 ">
+                {{ form.nome }}
+            </div>
+            <div class="col-md-12">
+                {{ form.email }}
+            </div>
+            <div class="col-md-12 ">
+                {{ form.assunto }}
+            </div>
+            <div class="col-md-12">
+                {{ form.mensagem}}
+            </div>
+            
+            <div class="col-12">
+                <button type="submit" class="btn " style="background-color: rgba(10, 150, 150, 0.651);">Enviar Mensagem</button>
+            </div>
+        </div>
+    </form>
+    <div class="container-fluid">
+        <h3 class="texto-centralizado">Avenida Paulista, 1471 loja 14</h3>
+    <h3 class="texto-centralizado telefone">Tel: 11-3266 8703</h3>
+    <p class="texto-centralizado">Entre em contato conosco, enviando o formulário abaixo ou <a href="mailto:contato@arteemminiaturas.com.br">contato@arteemminiaturas.com.br</a></p>
+    </div>
+</main>
+
+
+{%endblock conteudo%}

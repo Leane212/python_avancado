@@ -61,7 +61,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Contato</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'contato' %}">Contato</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#">Promoções</a>
@@ -74,6 +74,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'aloja' %}">A Loja</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'add_produtos' %}">Adicionar Produtos</a>
           </li>
           
         </ul>
@@ -101,6 +104,7 @@
       <img src="{% static prod.nome  %}" class="card-img-top" alt="...">
       <h5 class="card-title"> {{prod.produto.nome}} </h5>
       <p class="card-descricao"> {{prod.produto.descricao|slice:":50"}}</p>
+      <h6 class="card-codigo"> {{prod.produto.codigo}} </h6>
       <a href="" class="btn btn-primary">Por {{prod.produto.preco}}</a>
     </div>
     </div>
