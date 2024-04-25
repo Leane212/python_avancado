@@ -2,7 +2,23 @@
 
 {%block conteudo%}
 
-<form action="{% url 'add_produtos' %}" method="post" class="my-4">
+<style> 
+    #titulo{
+        font-size: 24px;
+        font-weight: bold;
+        color: rgba(2, 175, 175, 0.952);
+        text-align: center;
+    }
+
+    .linha {
+        border-bottom: 2px solid rgba(2, 175, 175, 0.952); 
+    }
+    
+</style> 
+
+<h4 id="titulo" class="container-fluid">ADICIONAR PRODUTO</h4><br>
+<div class="linha"></div>
+<form action="{% url 'add_produtos' %}" method="post" class="my-4 container-fluid">
     {% csrf_token %}
     <div class="row g-3">
         <div class="col-md-12 ">

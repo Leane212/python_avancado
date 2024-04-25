@@ -14,8 +14,20 @@
             font-weight: bold;
             color: #008080; 
         }
+        #titulo{
+            font-size: 24px;
+            font-weight: bold;
+            color: rgba(2, 175, 175, 0.952);
+            text-align: center;
+        }
+    
+        .linha {
+            border-bottom: 2px solid rgba(2, 175, 175, 0.952); 
+        }
     </style>
     
+    <h4 id="titulo" class="container-fluid">FALE CONOSCO</h4><br>
+    <div class="linha"></div>
     <form action="{% url 'contato' %}" method="post" class="my-4">
         {% csrf_token %}
         <div class="row g-3">

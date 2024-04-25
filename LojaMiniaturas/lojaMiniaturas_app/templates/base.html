@@ -95,13 +95,14 @@
     {% block conteudo %}
 
     {% for prod in produtos %}
+
+    {% load static %}
    
     <div class="card text-bg-light mb-3" style="width: 18rem;">
-    {% load static %}
     <div class="card-body">
-      {%for img in prod.imagem_set%}
+      {% for img in prod.imagem_set.all %}
         <img src="{% static img.nome %}" class="card-img-top" alt="...">
-      {%endfor%}
+      {% endfor %}
       <h5 class="card-title"> {{prod.nome}} </h5>
       <p class="card-descricao"> {{prod.descricao|slice:":50"}}</p>
       <h6 class="card-codigo"> {{prod.codigo}} </h6>
