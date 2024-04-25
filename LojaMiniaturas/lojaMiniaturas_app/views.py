@@ -9,8 +9,8 @@ def home (request):
     context = {'produto': produto}
     return render(request, 'base.html', context)
 
-def aloja(request):
-    return render(request, 'aloja.html')
+def sobre(request):
+    return render(request, 'sobre.html')
 
 def regras(request):
     return render(request, 'regras.html')
