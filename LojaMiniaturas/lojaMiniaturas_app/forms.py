@@ -95,4 +95,14 @@ class LoginForm (forms.ModelForm):
         model = User
         fields = ['username' , 'password']
         widgets = {'passoword': PasswordInput()}
-        
+            
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update(
+        {'placeholder':'Nome Usuário',
+        'class' : 'form-control'}
+        )
+        self.fields['password'].widget.attrs.update(
+        {'placeholder':'Senha',
+        'class' : 'form-control'}
+        )

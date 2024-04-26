@@ -1,11 +1,5 @@
 {% extends 'base.htmal'%}
 
 {%block conteudo%}
-<form method = "post" action = "{% url login %}">
-    {% csrf_token %}
-{{formslogin.username}}
-{{formslogin.password}}
-</form>
-
 
 {%endblock conteudo%}
