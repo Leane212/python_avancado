@@ -72,11 +72,10 @@ def cadastrouser(request):
     if request.method == 'POST':
         form = CadastroUsuario (request.POST)
         if form.is_valid():
-            if request.POST.get('password') != request.POST.get('confimacao'):
+            if request.POST.get('password') != request.POST.get('confirmacao'):
                 form.add_error('password', 'As senhas devem ser iguais.')
             else:
-                form.save(commit=False)
+                form = form.save(commit=False)
                 form.password = make_password(form.password)
                 form.save()
-            
     return HttpResponseRedirect(reverse('home'))
