@@ -1,6 +1,7 @@
 from django import forms
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.forms.widgets import *
+from django.contrib.auth.models import User
 
 
 class ProdutoForm (forms.ModelForm):
@@ -88,3 +89,10 @@ class ContatoForm(forms.Form):
     email = forms.EmailField(label='Seu E-mail')
     assunto = forms.CharField(label='Assunto', max_length=255)
     mensagem = forms.CharField(label='Mensagem', widget=forms.Textarea)
+
+class LoginForm (forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username' , 'password']
+        widgets = {'passoword': PasswordInput()}
+        

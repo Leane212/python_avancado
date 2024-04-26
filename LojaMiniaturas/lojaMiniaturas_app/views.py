@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm
+from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
+from django.contrib.auth import login as auth_login, authenticate
 
 
 
@@ -50,3 +51,16 @@ def contato(request):
         form = ContatoForm()
     
     return render(request, 'contato.html', {'form': form})
+
+def formulario(request):
+    return render (request, 'index.html', {'forms': LoginForm()})
+
+def login (request):
+    if request.methodo == 'POST':
+        #fazer o login
+       user = authenticate (username = request.POST.get('username'),
+                      password =request.POST.get('password'))
+       if user:
+           auth_login(request, user)
+    return HttpResponseRedirect(reverse('index'))
+
