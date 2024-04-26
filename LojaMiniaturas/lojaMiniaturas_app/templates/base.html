@@ -38,27 +38,67 @@
         <img src="{% static 'miniaturas_panfleto.png' %}" alt="logo" class="img-responsive w-100  object-fit-cover" height="290">
     </div>
     
-    <div id = 'login' class="modal top-0 vh-100 row" tabindex="-1">
+    <div id = 'login' class="modal top-0 vh-100 row " tabindex="-1">
       <div class="modal-dialog top-50 start-50 translate-middle m-0">
-        <div class="modal-content">
+        <div class="modal-content container-fluid">
+          <div class="modal-header">
+            <h5 class="modal-title">Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
           <form method = "post" action = "{% url 'login' %}">
 
             {% csrf_token %}
             {{formulario.username}}
             {{formulario.password}}
-            <button type = 'submit'>Enviar</button>
-            </form>
+
+            <div class="modal-footer">
+              <button type = 'submit' class="btn btn-outline-success">Entrar</button>
+
+              Crie seu cadastro
+              <p>
+                <button type = 'button' data-bs-toggle="modal" data-bs-target="#modal-novo-usuario" class="btn btn-outline-success">Cadastre-se</button>
+              </p>
+            </div>
+          </form>
         </div>
       </div>      
     </div>
 
     <div class="gap-2 justify-content-md-end" >
+
       {% if user.is_authenticated %}
         Bem vindo, {{user.username}}
-        <a href = "{% url 'logout' %}" class = "btn btn- secondary">Sair</a>
+        <a href = "{% url 'logout' %}" class = "btn btn-secondary rgba(2, 175, 175, 0.952)">Sair</a>
         {% else %}
-        <button class="btn me-md-2" type="button" id="botao" data-bs-toggle="modal" data-bs-target="#login">Entre ou cadastre-se</button>
-      {% endif %}
+        <button class="btn me-md-2" type="button" id="botao" data-bs-toggle="modal" data-bs-target="#login">Entre ou Cadastre-se</button>
+        {% endif %}
+    </div>
+    
+    
+    <div id = 'modal-novo-usuario' class="modal top-0 vh-100 row container-fluid" tabindex="-1">
+      <div class="modal-dialog top-50 start-50 translate-middle m-0">
+        <div class="modal-content p-2">
+          <div class="modal-header">
+            <h5 class="modal-title">Novo Usuário</h5>
+          </div>
+          <form method = "post" action = "{% url 'cadastrouser' %}">
+
+            {% csrf_token %}
+            <div class = "row gap-2 ">
+              <div class = "col">{{formcadastro.first_name}}</div>
+              <div class = "col">{{formcadastro.last_name}}</div>
+            </div>
+            {{formcadastro.username}}
+            {{formcadastro.email}}
+            {{formcadastro.password}}
+            <input type = "password" name ="confirmacao" class ="content my-2 p-2"></input>
+              <div class="modal-footer">
+                <button type = 'submit' class="btn btn-outline-success">Enviar</button>
+                <button type = 'button' data-bs-dismiss="modal" class="btn btn-outline-success">Cancelar</button>
+              </div>
+            </form>
+        </div>
+      </div>      
     </div>
     
     <div id="logo">

@@ -1,17 +1,17 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm
+from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
-
+from django.contrib.auth.hashers import make_password
 
 
 def home (request):
     produtos = Produto.objects.order_by('id')
     #imagem = Imagem.objects.order_by('id')
-    context = {'produtos': produtos, 'formulario': LoginForm()}
+    context = {'produtos': produtos, 'formulario': LoginForm(), 'formcadastro': CadastroUsuario()}
     return render(request, 'base.html', context)
 
 def sobre(request):
@@ -68,3 +68,15 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+def cadastrouser(request):
+    if request.method == 'POST':
+        form = CadastroUsuario (request.POST)
+        if form.is_valid():
+            if request.POST.get('password') != request.POST.get('confimacao'):
+                form.add_error('password', 'As senhas devem ser iguais.')
+            else:
+                form.save(commit=False)
+                form.password = make_password(form.password)
+                form.save()
+            
+    return HttpResponseRedirect(reverse('home'))
