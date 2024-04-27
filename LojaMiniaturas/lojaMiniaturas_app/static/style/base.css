@@ -18,8 +18,11 @@
 #botao{
     background-color: rgba(2, 175, 175, 0.952);
     position: absolute;
-	left: 80%; 
+    max-width: 100%;
+	left: 70%; 
+    right: 80%;
 	top: 80px;
+    transform: translate(50%, 0);
     z-index: 500; /*isso define que o botão vai ta por cima da logo e do fundo*/
 }
 

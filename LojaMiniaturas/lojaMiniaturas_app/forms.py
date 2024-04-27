@@ -69,15 +69,15 @@ class ContatoForm(forms.Form):
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['nome'].widget.attrs.update(
-            {'placeholder':'Seu Nome',
+            {'placeholder':'Nome',
             'class' : 'form-control'}
         )
         self.fields['email'].widget.attrs.update(
-            {'placeholder':'Seu E-mail',
+            {'placeholder':'E-mail',
             'class' : 'form-control'}
         )
         self.fields['assunto'].widget.attrs.update(
-            {'placeholder':'assunto',
+            {'placeholder':'Assunto',
             'class' : 'form-control'}
         )
         self.fields['mensagem'].widget.attrs.update(
@@ -85,8 +85,8 @@ class ContatoForm(forms.Form):
             'class' : 'form-control'}
         )
         
-    nome = forms.CharField(label='Seu Nome', max_length=100)
-    email = forms.EmailField(label='Seu E-mail')
+    nome = forms.CharField(label='Nome', max_length=100)
+    email = forms.EmailField(label='E-mail')
     assunto = forms.CharField(label='Assunto', max_length=255)
     mensagem = forms.CharField(label='Mensagem', widget=forms.Textarea)
 

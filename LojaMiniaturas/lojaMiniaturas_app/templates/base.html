@@ -73,8 +73,10 @@
           Bem vindo, {{user.username}}
         </button>
         <ul class="dropdown-menu">
+          <!--
           <li><a class="dropdown-item" href="#">Action</a></li>
           <li><a class="dropdown-item" href="#">Another action</a></li>
+          -->
           <li><a class="dropdown-item btn btn-secondary rgba(2, 175, 175, 0.952)" href="{% url 'logout' %} ">Sair</a></li>
         </ul>
       </div>
@@ -127,7 +129,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'contato' %}">Contato</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'contato' %}">Fale Conosco</a>
           </li>
           <!--
             <li class="nav-item">
@@ -149,7 +151,7 @@
           
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Pesquisar</button>
         </form>
       </div>

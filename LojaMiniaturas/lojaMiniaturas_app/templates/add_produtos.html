@@ -2,56 +2,67 @@
 
 {%block conteudo%}
 
-<style> 
-    #titulo{
-        font-size: 24px;
-        font-weight: bold;
-        color: rgba(2, 175, 175, 0.952);
-        text-align: center;
-    }
+    <style> 
+        #titulo{
+            font-size: 24px;
+            font-weight: bold;
+            color: rgba(2, 175, 175, 0.952);
+            text-align: center;
+            padding: 10px;
+        }
 
-    .linha {
-        border-bottom: 2px solid rgba(2, 175, 175, 0.952); 
-    }
-    
-</style> 
+        .linha {
+            border-bottom: 2px solid rgba(2, 175, 175, 0.952); 
+        }
+        .formulario{
+            display; flex;
+            margin: 0 auto;
+            width:80%;
+            padding: 20px;
+            border-radiuns: 10px;
+            background-color: ;
+            height: 100%;
+            margin-bottom: 50px;
+        }
+    </style> 
 
-<h4 id="titulo" class="container-fluid">ADICIONAR PRODUTO</h4><br>
-<div class="linha"></div>
-<form action="{% url 'add_produtos' %}" method="post" class="my-4 container-fluid">
-    {% csrf_token %}
-    <div class="row g-3">
-        <div class="col-md-12 ">
-            {{ form.nome }}
-        </div>
-        <div class="col-md-12">
-            {{ form.preco }}
-        </div>
-        <div class="col-md-12 ">
-            {{ form.descricao }}
-        </div>
-        <div class="col-md-12">
-            {{ form.codigo}}
-        </div>
-        <div class="col-md-12">
-            {{ form.video}}
-        </div>
-        <div class="col-md-12">
-            {{ form.data_cadastro }}
-        </div>
-        <div class="col-md-12">
-            {{ form.marca}}
-        </div>
-        <div class="col-md-12">
-            {{ form.categoria }}
-        </div>
-        <div class="col-md-12">
-            {{ form.especificacao}}
-        </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-success">Adicionar</button>
-        </div>
-    </div>
-</form>
-
+    <h4 id="titulo" class="container-fluid">ADICIONAR PRODUTO</h4>
+        <div class="linha"></div>
+            <div class ="formulario">
+                    <form action="{% url 'add_produtos' %}" method="post" class="my-4 container-fluid ">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-12 ">
+                                {{ form.nome }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.preco }}
+                            </div>
+                            <div class="col-md-12 ">
+                                {{ form.descricao }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.codigo}}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.video}}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.data_cadastro }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.marca}}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.categoria }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form.especificacao}}
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn" style="background-color: rgba(10, 150, 150, 0.651);">Adicionar</button>
+                            </div>
+                        </div>
+                    </form> 
+            </div>
 {%endblock conteudo%}
