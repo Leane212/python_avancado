@@ -10,8 +10,8 @@ class ProdutoForm (forms.ModelForm):
         fields = ['nome','preco','descricao','codigo','video','data_cadastro','marca','categoria','especificacao']
         labels = {'preco':"Preço"}
         
-    def __init__ (self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def _init_ (self, *args, **kwargs):
+        super()._init_(*args, **kwargs)
         self.fields['nome'].widget.attrs.update(
             {'placeholder':'Nome do produto',
             'class' : 'form-control'}
@@ -54,8 +54,8 @@ class ImagemForm(forms.ModelForm):
         model = Imagem
         fields = ['nome']     
     
-    def __init__ (self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def _init_ (self, *args, **kwargs):
+        super()._init_(*args, **kwargs)
         self.fields['nome'].widget.attrs.update(
             {'placeholder':'Nome da imagem',
             'class' : 'form-control'}
@@ -66,8 +66,8 @@ class ContatoForm(forms.Form):
         model= MensagemContato
         fields = ['nome','email','assunto','mensagem']
 
-    def __init__ (self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def _init_ (self, *args, **kwargs):
+        super()._init_(*args, **kwargs)
         self.fields['nome'].widget.attrs.update(
             {'placeholder':'Seu Nome',
             'class' : 'form-control'}
@@ -95,4 +95,43 @@ class LoginForm (forms.ModelForm):
         model = User
         fields = ['username' , 'password']
         widgets = {'passoword': PasswordInput()}
-        
+            
+    def _init_ (self, *args, **kwargs):
+        super()._init_(*args, **kwargs)
+        self.fields['username'].widget.attrs.update(
+        {'placeholder':'Nome Usuário',
+        'class' : 'form-control'}
+        )
+        self.fields['password'].widget.attrs.update(
+        {'placeholder':'Senha',
+        'class' : 'form-control'}
+        )
+
+class CadastroUsuario (forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email', 'first_name', 'last_name']
+        widgets = {'email': EmailInput(), 'password': PasswordInput()}
+
+    def _init_ (self, *args, **kwargs):
+        super()._init_(*args, **kwargs)
+        self.fields['username'].widget.attrs.update(
+        {'placeholder':'Nome Usuário',
+        'class' : 'form-control'}
+        )
+        self.fields['password'].widget.attrs.update(
+        {'placeholder':'Senha',
+        'class' : 'form-control'}
+        )
+        self.fields['email'].widget.attrs.update(
+        {'placeholder':'Email',
+        'class' : 'form-control'}
+        )
+        self.fields['first_name'].widget.attrs.update(
+        {'placeholder':'Primeiro Nome',
+        'class' : 'form-control'}
+        )
+        self.fields['last_name'].widget.attrs.update(
+        {'placeholder':'Segundo Nome',
+        'class' : 'form-control'}
+        )

@@ -1,17 +1,18 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm
+from lojaMiniaturas_app.forms import CadastroUsuario, ContatoForm, ProdutoForm, LoginForm
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth import login as auth_login, authenticate,logout as auth_logout
+from django.contrib.auth.hashers import make_password
 
 
 
 def home (request):
     produtos = Produto.objects.order_by('id')
     #imagem = Imagem.objects.order_by('id')
-    context = {'produtos': produtos}
+    context = {'produtos': produtos, 'formulario': LoginForm(), 'formcadastro' :CadastroUsuario()}
     return render(request, 'base.html', context)
 
 def sobre(request):
@@ -56,11 +57,27 @@ def formulario(request):
     return render (request, 'index.html', {'forms': LoginForm()})
 
 def login (request):
-    if request.methodo == 'POST':
+    if request.method == 'POST':
         #fazer o login
-       user = authenticate (username = request.POST.get('username'),
-                      password =request.POST.get('password'))
+       user = authenticate(username = request.POST.get('username'),
+                        password =request.POST.get('password'))
        if user:
            auth_login(request, user)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('home'))
 
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
+def cadastroUsuario(request):
+    if request.method == "POST":
+        form = CadastroUsuario(request.POST)
+        if form.is_valid():
+            if request.POST.get('password') != request.POST.get('confirmacao'):
+                form.add_erro('password', 'As senhas devem ser iguais')
+            else:
+                form = form.save(commit=False)
+                form.password = make_password
+                form.save()
+    return HttpResponseRedirect(reverse('home'))
+    

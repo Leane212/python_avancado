@@ -30,7 +30,7 @@
     <div class="linha"></div>
     <form action="{% url 'contato' %}" method="post" class="my-4">
         {% csrf_token %}
-        <div class="row g-3">
+        <div class="row g-3 container-fluid">
             <div class="col-md-12 ">
                 {{ form.nome }}
             </div>
