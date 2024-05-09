@@ -52,11 +52,19 @@
             {{formulario.password}}
 
             <div class="modal-footer">
+<<<<<<< HEAD
               <button type = 'submit' class="btn btn-outline-success">Entrar</button>
 
               Crie seu cadastro
               <p>
                 <button type = 'button' data-bs-toggle="modal" data-bs-target="#modal-novo-usuario" class="btn btn-outline-success">Cadastre-se</button>
+=======
+              <button type = 'submit' class="btn btn-outline-success d-flex justify-content-end">Entrar</button>
+
+              Crie seu cadastro
+              <p>
+                <button type = 'button' data-bs-toggle="modal" data-bs-target="#modal-novo-usuario" class="btn btn-outline-success d-flex justify-content-end">Cadastre-se</button>
+>>>>>>> origin/Myllena
               </p>
             </div>
           </form>
@@ -67,10 +75,28 @@
     <div class="gap-2 justify-content-md-end" >
 
       {% if user.is_authenticated %}
+<<<<<<< HEAD
         Bem vindo, {{user.username}}
         <a href = "{% url 'logout' %}" class = "btn btn-secondary rgba(2, 175, 175, 0.952)">Sair</a>
         {% else %}
         <button class="btn me-md-2" type="button" id="botao" data-bs-toggle="modal" data-bs-target="#login">Entre ou Cadastre-se</button>
+=======
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Bem vindo, {{user.username}}
+        </button>
+        <ul class="dropdown-menu">
+          <!--
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          -->
+          <li><a class="dropdown-item btn btn-secondary rgba(2, 175, 175, 0.952)" href="{% url 'logout' %} ">Sair</a></li>
+        </ul>
+      </div>
+        {% else %}
+        <button class="btn me-md-2 " type="button" id="botao" data-bs-toggle="modal" data-bs-target="#login">Entre ou Cadastre-se</button>
+>>>>>>> origin/Myllena
         {% endif %}
     </div>
     
@@ -81,7 +107,11 @@
           <div class="modal-header">
             <h5 class="modal-title">Novo Usuário</h5>
           </div>
+<<<<<<< HEAD
           <form method = "post" action = "{% url 'cadastroUsuario' %}">
+=======
+          <form method = "post" action = "{% url 'cadastrouser' %}">
+>>>>>>> origin/Myllena
 
             {% csrf_token %}
             <div class = "row gap-2 ">
@@ -118,7 +148,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'contato' %}">Contato</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'contato' %}">Fale Conosco</a>
           </li>
           <!--
             <li class="nav-item">
@@ -140,7 +170,7 @@
           
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Pesquisar</button>
         </form>
       </div>

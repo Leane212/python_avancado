@@ -19,41 +19,65 @@
             font-weight: bold;
             color: rgba(2, 175, 175, 0.952);
             text-align: center;
+            padding: 10px;
+            
+            
         }
     
         .linha {
-            border-bottom: 2px solid rgba(2, 175, 175, 0.952); 
+            border-bottom: 2px solid rgba(2, 175, 175, 0.952);
+            
+        }
+        .fomulario{
+            display; flex;
+            margin: 0 auto;
+            width:80%;
+            padding: 10px;
+            border-radiuns: 10px;
+            background-color: ;
+            height: 100%;
+            margin-bottom: 50px;
         }
     </style>
     
-    <h4 id="titulo" class="container-fluid">FALE CONOSCO</h4><br>
+    <h4 id="titulo" class="container-fluid">FALE CONOSCO</h4>
     <div class="linha"></div>
+<<<<<<< HEAD
     <form action="{% url 'contato' %}" method="post" class="my-4">
         {% csrf_token %}
         <div class="row g-3 container-fluid">
             <div class="col-md-12 ">
                 {{ form.nome }}
+=======
+    <div class = "fomulario">
+                <form action="{% url 'contato' %}" method="post" class="my-4 container-fluid">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-12 ">
+                            {{ form.nome }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-12 ">
+                            {{ form.assunto }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form.mensagem}}
+                        </div>
+                        
+                        <div class="col-12">
+                            <button type="submit" class="btn " style="background-color: rgba(10, 150, 150, 0.651);">Enviar Mensagem</button>
+                        </div>
+                    </div>
+                </form>
+>>>>>>> origin/Myllena
             </div>
-            <div class="col-md-12">
-                {{ form.email }}
+            <div class="container-fluid">
+                <h3 class="texto-centralizado">Avenida Paulista, 1471 loja 14</h3>
+            <h3 class="texto-centralizado telefone">Tel: 11-3266 8703</h3>
+            <p class="texto-centralizado">Entre em contato conosco, enviando o formulário abaixo ou <a href="mailto:contato@arteemminiaturas.com.br">contato@arteemminiaturas.com.br</a></p>
             </div>
-            <div class="col-md-12 ">
-                {{ form.assunto }}
-            </div>
-            <div class="col-md-12">
-                {{ form.mensagem}}
-            </div>
-            
-            <div class="col-12">
-                <button type="submit" class="btn " style="background-color: rgba(10, 150, 150, 0.651);">Enviar Mensagem</button>
-            </div>
-        </div>
-    </form>
-    <div class="container-fluid">
-        <h3 class="texto-centralizado">Avenida Paulista, 1471 loja 14</h3>
-    <h3 class="texto-centralizado telefone">Tel: 11-3266 8703</h3>
-    <p class="texto-centralizado">Entre em contato conosco, enviando o formulário abaixo ou <a href="mailto:contato@arteemminiaturas.com.br">contato@arteemminiaturas.com.br</a></p>
-    </div>
 </main>
 
 

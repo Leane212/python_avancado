@@ -69,15 +69,15 @@ class ContatoForm(forms.Form):
     def _init_ (self, *args, **kwargs):
         super()._init_(*args, **kwargs)
         self.fields['nome'].widget.attrs.update(
-            {'placeholder':'Seu Nome',
+            {'placeholder':'Nome',
             'class' : 'form-control'}
         )
         self.fields['email'].widget.attrs.update(
-            {'placeholder':'Seu E-mail',
+            {'placeholder':'E-mail',
             'class' : 'form-control'}
         )
         self.fields['assunto'].widget.attrs.update(
-            {'placeholder':'assunto',
+            {'placeholder':'Assunto',
             'class' : 'form-control'}
         )
         self.fields['mensagem'].widget.attrs.update(
@@ -85,8 +85,8 @@ class ContatoForm(forms.Form):
             'class' : 'form-control'}
         )
         
-    nome = forms.CharField(label='Seu Nome', max_length=100)
-    email = forms.EmailField(label='Seu E-mail')
+    nome = forms.CharField(label='Nome', max_length=100)
+    email = forms.EmailField(label='E-mail')
     assunto = forms.CharField(label='Assunto', max_length=255)
     mensagem = forms.CharField(label='Mensagem', widget=forms.Textarea)
 
@@ -94,10 +94,17 @@ class LoginForm (forms.ModelForm):
     class Meta:
         model = User
         fields = ['username' , 'password']
+<<<<<<< HEAD
         widgets = {'passoword': PasswordInput()}
             
     def _init_ (self, *args, **kwargs):
         super()._init_(*args, **kwargs)
+=======
+        widgets = {'password': PasswordInput()}
+            
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+>>>>>>> origin/Myllena
         self.fields['username'].widget.attrs.update(
         {'placeholder':'Nome Usuário',
         'class' : 'form-control'}
@@ -106,6 +113,7 @@ class LoginForm (forms.ModelForm):
         {'placeholder':'Senha',
         'class' : 'form-control'}
         )
+<<<<<<< HEAD
 
 class CadastroUsuario (forms.ModelForm):
     class Meta:
@@ -133,5 +141,34 @@ class CadastroUsuario (forms.ModelForm):
         )
         self.fields['last_name'].widget.attrs.update(
         {'placeholder':'Segundo Nome',
+=======
+        
+class CadastroUsuario(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email', 'first_name', 'last_name']
+        widgets = {'email': EmailInput(), 'password':PasswordInput()}
+        
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update(
+        {'placeholder':'Nome',
+        'class' : 'form-control'}
+        )
+        self.fields['last_name'].widget.attrs.update(
+        {'placeholder':'Sobrenome',
+        'class' : 'form-control'}
+        )
+        self.fields['username'].widget.attrs.update(
+        {'placeholder':'Usuário',
+        'class' : 'form-control'}
+        )
+        self.fields['email'].widget.attrs.update(
+        {'placeholder':'E-mail',
+        'class' : 'form-control'}
+        )
+        self.fields['password'].widget.attrs.update(
+        {'placeholder':'Senha',
+>>>>>>> origin/Myllena
         'class' : 'form-control'}
         )

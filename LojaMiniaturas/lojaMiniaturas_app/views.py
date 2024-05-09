@@ -1,18 +1,31 @@
 from django.shortcuts import render
+<<<<<<< HEAD
 from lojaMiniaturas_app.forms import CadastroUsuario, ContatoForm, ProdutoForm, LoginForm
+=======
+from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
+>>>>>>> origin/Myllena
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
+<<<<<<< HEAD
 from django.contrib.auth import login as auth_login, authenticate,logout as auth_logout
 from django.contrib.auth.hashers import make_password
 
+=======
+from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
+from django.contrib.auth.hashers import make_password
+>>>>>>> origin/Myllena
 
 
 def home (request):
     produtos = Produto.objects.order_by('id')
     #imagem = Imagem.objects.order_by('id')
+<<<<<<< HEAD
     context = {'produtos': produtos, 'formulario': LoginForm(), 'formcadastro' :CadastroUsuario()}
+=======
+    context = {'produtos': produtos, 'formulario': LoginForm(), 'formcadastro': CadastroUsuario()}
+>>>>>>> origin/Myllena
     return render(request, 'base.html', context)
 
 def sobre(request):
@@ -69,6 +82,7 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+<<<<<<< HEAD
 def cadastroUsuario(request):
     if request.method == "POST":
         form = CadastroUsuario(request.POST)
@@ -81,3 +95,16 @@ def cadastroUsuario(request):
                 form.save()
     return HttpResponseRedirect(reverse('home'))
     
+=======
+def cadastrouser(request):
+    if request.method == 'POST':
+        form = CadastroUsuario (request.POST)
+        if form.is_valid():
+            if request.POST.get('password') != request.POST.get('confirmacao'):
+                form.add_error('password', 'As senhas devem ser iguais.')
+            else:
+                form = form.save(commit=False)
+                form.password = make_password(form.password)
+                form.save()
+    return HttpResponseRedirect(reverse('home'))
+>>>>>>> origin/Myllena
