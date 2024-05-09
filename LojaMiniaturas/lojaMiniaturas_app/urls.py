@@ -9,10 +9,6 @@ urlpatterns = [
     path('contato/', views.contato, name = 'contato'),
     path('login/',  views.login, name = 'login'),
     path('logout/',  views.logout, name = 'logout'),
-<<<<<<< HEAD
-    path('cadastroUsuario/',  views.cadastroUsuario, name = 'cadastroUsuario')
-=======
     path('cadastrouser/',  views.cadastrouser, name = 'cadastrouser'),
     
->>>>>>> origin/Myllena
 ]
