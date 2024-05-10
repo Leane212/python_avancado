@@ -49,6 +49,18 @@ class ProdutoForm (forms.ModelForm):
             'class' : 'form-control'}
         )
 
+class CategoriaForm (forms.ModelForm):
+    class Meta:
+        model = Produto
+        fields = ['nome']
+        
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nome'].widget.attrs.update(
+            {'placeholder':'Nome da categoria',
+            'class' : 'form-control'}
+        )        
+
 class ImagemForm(forms.ModelForm):
     class Meta:
         model = Imagem

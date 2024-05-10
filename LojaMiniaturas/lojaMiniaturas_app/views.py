@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
+from lojaMiniaturas_app.forms import CategoriaForm, ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -28,11 +28,25 @@ def add_produtos(request):
         form = ProdutoForm()
     else:
         form = ProdutoForm(request.POST)
+        form = form.save(commit=False)
+        imagem = Imagem.objects.create(name = request.POST["imagem"], id_produto = request.id)
+        
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('home'))
     context = {'form':form}
     return render(request,'add_produtos.html',context)
+
+def cadastrar_categorias(request):
+    if request.method == "GET":
+        form = CategoriaForm()
+    else:
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('home'))
+    context = {'form':form}
+    return render(request,'cadastrar_categorias.html',context)
 
 def contato(request):
     if request.method == 'POST':
@@ -79,3 +93,9 @@ def cadastrouser(request):
                 form.password = make_password(form.password)
                 form.save()
     return HttpResponseRedirect(reverse('home'))
+
+def promocao (request):
+    return render(request, 'promocao.html')
+
+def novidades (request):
+    return render(request, 'novidades.html')
