@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
+from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario, Desconto
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -79,3 +79,16 @@ def cadastrouser(request):
                 form.password = make_password(form.password)
                 form.save()
     return HttpResponseRedirect(reverse('home'))
+
+def promocao (request):
+    promocoes = Desconto.objects.order_by('data_cadastro')[:10]
+    context = {'promocoes': promocoes}
+    return render(request, 'promocao.html', context)
+    #{{promocoes.produto.nome}}
+    #{{promocoes.valor}}
+
+def novidades (request):
+    novidade = Produto.objects.order_by('-data_cadastro')[:2]
+    context = {'novidade': novidade}
+    return render(request, 'novidades.html', context)
+    

@@ -6,7 +6,7 @@ class Produto (models.Model):
     descricao = models.TextField()
     codigo = models.IntegerField()
     video = models.TextField()
-    data_cadastro = models.DateField()
+    data_cadastro = models.DateField(auto_now_add=True)
     marca = models.ForeignKey("Marca", on_delete=models.CASCADE)
     categoria = models.ForeignKey("Categoria", on_delete=models.CASCADE)
     especificacao = models.TextField()
@@ -41,7 +41,6 @@ class Desconto (models.Model):
     
     def __str__ (self):
         return self.valor
-
     
 class MensagemContato(models.Model):
     nome = models.CharField(max_length=100)
