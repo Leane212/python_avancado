@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
-from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
+from lojaMiniaturas_app.models import Desconto, MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from django.contrib.auth.hashers import make_password
-
+from django.contrib.auth.models import User 
 
 def home (request):
     produtos = Produto.objects.order_by('id')
     #imagem = Imagem.objects.order_by('id')
-    context = {'produtos': produtos, 'formulario': LoginForm(), 'formcadastro': CadastroUsuario()}
+    if request.user.is_authenticated:
+        context = {'produtos': produtos, 'formulario': LoginForm(), 'formcadastro': CadastroUsuario(instance=User.objects.get(id=request.user.id))}
+    else:
+        context = {'produtos': produtos, 'formulario': LoginForm(), 'formcadastro': CadastroUsuario()}
     return render(request, 'base.html', context)
 
 def sobre(request):
@@ -81,7 +84,7 @@ def cadastrouser(request):
     return HttpResponseRedirect(reverse('home'))
 
 def promocao (request):
-    promocoes = Desconto.objects.order_by('data_cadastro')[:10]
+    promocoes = Desconto.objects.order_by('data_inicial')[:10]
     context = {'promocoes': promocoes}
     return render(request, 'promocao.html', context)
     #{{promocoes.produto.nome}}
@@ -91,4 +94,21 @@ def novidades (request):
     novidade = Produto.objects.order_by('-data_cadastro')[:2]
     context = {'novidade': novidade}
     return render(request, 'novidades.html', context)
-    
+
+def deluser (request, id):
+    user = User.objects.get(id=id)
+    user.delete()
+    auth_logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
+def editperfil (request):
+    if request.method == 'POST':
+        print(request.user)
+        usuario = User.objects.get(id=request.user.id)
+        novo_usuario = request.POST.copy()
+        novo_usuario['password'] = usuario.password
+        novo_usuario['username'] = usuario.username
+        user = CadastroUsuario(instance=usuario, data=novo_usuario)
+        if user.is_valid:
+            user.save()
+    return HttpResponseRedirect(reverse('home'))

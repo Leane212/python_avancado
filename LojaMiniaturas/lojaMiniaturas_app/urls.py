@@ -11,5 +11,7 @@ urlpatterns = [
     path('logout/',  views.logout, name = 'logout'),
     path('cadastrouser/',  views.cadastrouser, name = 'cadastrouser'),
     path('promocao', views.promocao, name = 'promocao'),
-    path('novidades', views.novidades, name = 'novidades')
+    path('novidades', views.novidades, name = 'novidades'),
+    path('deluser/<id>', views.deluser, name='deluser'),
+    path('editperfil/', views.editperfil, name='editperfil')
 ]
