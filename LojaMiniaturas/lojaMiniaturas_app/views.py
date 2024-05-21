@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario, Desconto
+from lojaMiniaturas_app.forms import ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
 from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
