@@ -3,11 +3,15 @@ from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
 from django.forms.widgets import *
 from django.contrib.auth.models import User
 
-
+''''
+class DescontoForm (forms.ModelForm):
+    class Meta:
+        fields = ['']
+'''
 class ProdutoForm (forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome','preco','descricao','codigo','video','data_cadastro','marca','categoria','especificacao']
+        fields = ['nome','preco','descricao','codigo','video','marca','categoria','especificacao']
         labels = {'preco':"Preço"}
         
     def __init__ (self, *args, **kwargs):
@@ -32,10 +36,7 @@ class ProdutoForm (forms.ModelForm):
             {'placeholder':'Video',
             'class' : 'form-control'}
         )
-        self.fields['data_cadastro'].widget.attrs.update(
-            {'placeholder':'Data do Cadastro',
-            'class' : 'form-control'}
-        )
+       
         self.fields['marca'].widget.attrs.update(
             {'placeholder':'Marca do produto',
             'class' : 'form-control'}

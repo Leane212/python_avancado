@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{%block conteudo%}
+    <main>
+        <style>
+          .titulo {
+            font-size: 24px;
+            font-weight: bold;
+            color: rgba(2, 175, 175, 0.952);
+            text-align: center;
+        }
+        
+        .linha {
+            border-bottom: 2px solid rgba(2, 175, 175, 0.952); 
+        }  
+        </style>
+        
+        <div class ="container-fluid">
+            <p class="titulo" >PROMOÇÕES</p>
+            <div class="linha"></div>
+        </div>
+        {% for prod in promocoes %}
+     
+
+        {% load static %}
+   
+        <div class="card text-bg-light mb-3" style="width: 18rem;">
+        <div class="card-body">
+          {% for img in prod.imagem_set.all %}
+            <img src="{% static img.nome %}" class="card-img-top" alt="...">
+          {% endfor %}
+          <h5 class="card-title"> {{prod.nome}} </h5>
+          <p class="card-descricao"> {{prod.descricao|slice:":50"}}</p>
+          <h6 class="card-codigo"> {{prod.codigo}} </h6>
+          <a href="" class="btn btn-primary">Por R${{prod.valor}}</a>
+        </div>
+        </div>
+        
+        {% endfor %}
+    </main>
+    
+{%endblock conteudo%}

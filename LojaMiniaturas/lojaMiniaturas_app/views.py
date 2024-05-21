@@ -95,7 +95,14 @@ def cadastrouser(request):
     return HttpResponseRedirect(reverse('home'))
 
 def promocao (request):
-    return render(request, 'promocao.html')
+    promocoes = Desconto.objects.order_by('data_cadastro')[:10]
+    context = {'promocoes': promocoes}
+    return render(request, 'promocao.html', context)
+    #{{promocoes.produto.nome}}
+    #{{promocoes.valor}}
 
 def novidades (request):
-    return render(request, 'novidades.html')
+    novidade = Produto.objects.order_by('-data_cadastro')[:2]
+    context = {'novidade': novidade}
+    return render(request, 'novidades.html', context)
+    
