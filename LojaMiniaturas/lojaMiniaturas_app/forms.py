@@ -1,5 +1,5 @@
 from django import forms
-from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
+from lojaMiniaturas_app.models import Categoria, Marca, MensagemContato, Produto, Imagem
 from django.forms.widgets import *
 from django.contrib.auth.models import User
 
@@ -52,7 +52,7 @@ class ProdutoForm (forms.ModelForm):
 
 class CategoriaForm (forms.ModelForm):
     class Meta:
-        model = Produto
+        model = Categoria
         fields = ['nome']
         
     def __init__ (self, *args, **kwargs):
@@ -61,7 +61,17 @@ class CategoriaForm (forms.ModelForm):
             {'placeholder':'Nome da categoria',
             'class' : 'form-control'}
         )        
-
+class MarcaForm (forms.ModelForm):
+    class Meta:
+        model = Marca
+        fields = ['nome']
+        
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nome'].widget.attrs.update(
+            {'placeholder':'Nome da marca',
+            'class' : 'form-control'}
+        )
 class ImagemForm(forms.ModelForm):
     class Meta:
         model = Imagem

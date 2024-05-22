@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import CategoriaForm, ContatoForm, ProdutoForm, LoginForm, CadastroUsuario
-from lojaMiniaturas_app.models import MensagemContato, Produto, Imagem
+from lojaMiniaturas_app.forms import CategoriaForm, ContatoForm, MarcaForm, ProdutoForm, LoginForm, CadastroUsuario
+from lojaMiniaturas_app.models import Desconto, MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
@@ -28,11 +28,10 @@ def add_produtos(request):
         form = ProdutoForm()
     else:
         form = ProdutoForm(request.POST)
-        form = form.save(commit=False)
-        imagem = Imagem.objects.create(name = request.POST["imagem"], id_produto = request.id)
-        
         if form.is_valid():
-            form.save()
+            form = form.save()
+            imagem = Imagem.objects.create(name = request.POST["imagem"], id_produto = form.id)
+            imagem.save()
             return HttpResponseRedirect(reverse('home'))
     context = {'form':form}
     return render(request,'add_produtos.html',context)
@@ -45,8 +44,20 @@ def cadastrar_categorias(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('home'))
-    context = {'form':form}
-    return render(request,'cadastrar_categorias.html',context)
+    context = {'form': form}
+    return render(request, 'cadastrar_categorias.html', context)
+
+
+def cadastrar_marcas(request):
+    if request.method == "GET":
+        form = MarcaForm()
+    else:
+        form = MarcaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('home'))
+    context = {'form': form}
+    return render(request, 'cadastrar_marcas.html', context)
 
 def contato(request):
     if request.method == 'POST':

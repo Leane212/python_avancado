@@ -70,7 +70,7 @@
 
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Bem vindo, {{user.username}}
+          Bem vindo, {{user.first_name}}
         </button>
         <ul class="dropdown-menu">
           <!--
@@ -145,16 +145,18 @@
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'sobre' %}">Sobre</a>
           </li>
+          {% if user.is_superuser %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Produto
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'add_produtos' %}">Adicionar Produto</a></li>
-              <li><a class="dropdown-item" href="#">Adicionar Marca</a></li>
-              <li><a class="dropdown-item" href="#">Adicionar Categoria</a></li>
+              <li><a class="dropdown-item" href="{% url 'add_produtos' %}">Cadastrar Produto</a></li>
+              <li><a class="dropdown-item" href="{% url 'cadastrar_categorias' %}">Cadastrar Categorias</a></li>
+              <li><a class="dropdown-item" href="{% url 'cadastrar_marcas' %}">Cadastrar Marcas</a></li>
             </ul>
           </li>
+          {% endif %}
           
         </ul>
         <form class="d-flex" role="search">

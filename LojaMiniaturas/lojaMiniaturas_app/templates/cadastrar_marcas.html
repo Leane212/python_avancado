@@ -11,7 +11,7 @@
   }
 
   .linha {
-      border-bottom: 2px solid rgba(2, 175, 175, 0.952); 
+      border-bottom: 5px solid rgba(2, 175, 175, 0.952); 
   }
   .formulario{
       display; flex;
@@ -24,11 +24,11 @@
       margin-bottom: 50px;
   }
 </style> 
-<h4 id="titulo" class="container-fluid">CADASTRAR CATEGORIA</h4>
+<h4 id="titulo" class="container-fluid">CADASTRAR MARCAS</h4>
     <div class="linha"></div>
-        <div class ="formulario" style ="height: 25rem">
+        <div class ="formulario" style ="height: 25rem" >
 
-          <form action="{% url 'cadastrar_categorias' %}" method="post" class="my-4 container-fluid ">
+          <form action="{% url 'cadastrar_marcas' %}" method="post" class="my-4 container-fluid ">
             {% csrf_token %}
                 
                   <div class="col-md-12">
