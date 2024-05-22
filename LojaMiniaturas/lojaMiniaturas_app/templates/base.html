@@ -68,15 +68,11 @@
 
       {% if user.is_authenticated %}
 
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Bem vindo, {{user.first_name}}
-        </button>
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Bem vindo, {{user.first_name}}
+      </button>
         <ul class="dropdown-menu">
-          <!--
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          -->
+          <li><a href="#"  data-bs-toggle="modal" data-bs-target="#modal-perfil" class="rounded-0 d-block btn btn-secondary"> Perfil </a></li>
           <li><a class="dropdown-item btn btn-secondary rgba(2, 175, 175, 0.952)" href="{% url 'logout' %} ">Sair</a></li>
         </ul>
       </div>
@@ -85,33 +81,60 @@
         {% endif %}
     </div>
     
-    
-    <div id = 'modal-novo-usuario' class="modal top-0 vh-100 row container-fluid" tabindex="-1">
-      <div class="modal-dialog top-50 start-50 translate-middle m-0">
-        <div class="modal-content p-2">
-          <div class="modal-header">
-            <h5 class="modal-title">Novo Usuário</h5>
-          </div>
-          <form method = "post" action = "{% url 'cadastrouser' %}">
-
-            {% csrf_token %}
-            <div class = "row gap-2 ">
-              <div class = "col">{{formcadastro.first_name}}</div>
-              <div class = "col">{{formcadastro.last_name}}</div>
+    {% if not user.is_authenticated %}
+      <div id = 'modal-novo-usuario' class="modal top-0 vh-100 row container-fluid" tabindex="-1">
+        <div class="modal-dialog top-50 start-50 translate-middle m-0">
+          <div class="modal-content p-2">
+            <div class="modal-header">
+              <h5 class="modal-title">Novo Usuário</h5>
             </div>
-            {{formcadastro.username}}
-            {{formcadastro.email}}
-            {{formcadastro.password}}
-            <input type = "password" name ="confirmacao" class ="content my-2 p-2"></input>
-              <div class="modal-footer">
-                <button type = 'submit' class="btn btn-outline-success">Casdastrar</button>
-                <button type = 'button' data-bs-dismiss="modal" class="btn btn-outline-success">Cancelar</button>
+            <form method = "post" action = "{% url 'cadastrouser' %}">
+
+              {% csrf_token %}
+              <div class = "row gap-2 ">
+                <div class = "col">{{formcadastro.first_name}}</div>
+                <div class = "col">{{formcadastro.last_name}}</div>
               </div>
-            </form>
-        </div>
-      </div>      
-    </div>
+              {{formcadastro.username}}
+              {{formcadastro.email}}
+              {{formcadastro.password}}
+              <input type = "password" name ="confirmacao" placeholder="Confirmar Senha" class ="content my-2 p-2"></input>
+                <div class="modal-footer">
+                  <button type = 'submit' class="btn btn-outline-success">Casdastrar</button>
+                  <button type = 'button' data-bs-dismiss="modal" class="btn btn-outline-success">Cancelar</button>
+                </div>
+              </form>
+          </div>
+        </div>      
+      </div>
     
+      {% else %}
+      <section id="modal-perfil" class="modal top-0 row align-content-center">
+        <div class="modal-dialog col-10 col-lg-6 mx-auto bg-light rounded">
+          <div class="modal-content p-4">
+            <h2 class="text-center text-dark my-4"> Perfil </h2>
+            <form method="post" action="{% url 'editperfil' %}" class="row flex-column align-items-end">
+                {% csrf_token %}
+                <p>Usuário:</p>
+                <input type="text" readonly class="form-control-plaintext my-2" value="{{user.username}}">
+
+                <p>Nome:</p>
+                <div class="d-flex gap-2">
+                    {{formcadastro.first_name}}
+                    {{formcadastro.last_name}}
+                </div>
+                <p>Email:</p>
+                {{formcadastro.email}}
+                <div class="col-auto">
+                    <a href='{% url 'deluser' user.id %}' type="button" class="my-3 text-danger px-3 py-2 link text-decoration-none"> Encerrar Conta </a>
+                    <a type="button" class="btn my-3 btn-secondary px-3 py-2" data-bs-dismiss="modal"> Cancelar </a>
+                    <button type="submit" class="btn my-3 btn-success px-3 py-2"> Atualizar </button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </section>        
+    {% endif %}
     <div id="logo">
       {% load static %}
       <img src="{% static 'logo.png' %}" alt="logo" class="img-responsive w-100 object-fit-cover img-container" height="400px" >

@@ -12,7 +12,6 @@ urlpatterns = [
     path('cadastrouser/',  views.cadastrouser, name = 'cadastrouser'),
     path('promocao', views.promocao, name = 'promocao'),
     path('novidades', views.novidades, name = 'novidades'),
-    path('cadastrar_categorias', views.cadastrar_categorias, name= 'cadastrar_categorias'),
-    path('cadastrar_marcas', views.cadastrar_marcas, name= 'cadastrar_marcas')
-    
+    path('deluser/<id>', views.deluser, name='deluser'),
+    path('editperfil/', views.editperfil, name='editperfil')
 ]
