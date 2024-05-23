@@ -144,15 +144,16 @@ def editperfil (request):
         novo_usuario['username'] = usuario.username
         user = CadastroUsuario(instance=usuario, data=novo_usuario)
         if user.is_valid:
+            user.save()
             
-            permlist = []
+        ''' permlist = []
             for permissao in request.POST.getlist("permissao"):
                 permlist.append(Permission.objects.get(id=permissao))
             user = user.save(commit=False)
             user.password = make_password(user.password)
             user.save()
-            user.user_permissions.set(permlist)
-            user.save()
+            user.user_permissions.set(permlist)'''
+            
     return HttpResponseRedirect(reverse('home'))
 
 def adm(request):
@@ -187,7 +188,7 @@ def alternarstaff(request,id):
 
 # esse é o def painel do professor
 def admusuario(request,id):
-    #ver ser ta altenticado e se é superuser 
+    #ver ta altenticado e se é superuser 
     if request.method == 'GET' and request.user.is_authenticated and request.user.is_superuser:
      permissoes = Permission.objects.order_by('id')
     permissoes_agrupadas = {}
