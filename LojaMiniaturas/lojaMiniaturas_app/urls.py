@@ -6,6 +6,8 @@ urlpatterns = [
     path('sobre/', views.sobre, name = 'sobre'),
     path('regras/', views.regras, name = 'regras'),
     path('add_produtos/', views.add_produtos, name = 'add_produtos'),
+    path('cadastrar_categorias/', views.cadastrar_categorias, name = 'cadastrar_categorias'),
+    path('cadastrar_marcas/', views.cadastrar_marcas, name = 'cadastrar_marcas'),
     path('contato/', views.contato, name = 'contato'),
     path('login/',  views.login, name = 'login'),
     path('logout/',  views.logout, name = 'logout'),
@@ -13,5 +15,11 @@ urlpatterns = [
     path('promocao', views.promocao, name = 'promocao'),
     path('novidades', views.novidades, name = 'novidades'),
     path('deluser/<id>', views.deluser, name='deluser'),
-    path('editperfil/', views.editperfil, name='editperfil')
+    path('editperfil/', views.editperfil, name='editperfil'),
+    
+    path("adm", views.adm, name="adm"),
+    path("admusuario/<id>", views.admusuario, name="admusuario"),
+    path("alternaractive/<id>", views.alternaractive, name="alternaractive"),
+    path("alternarsuperuser/<id>", views.alternarsuperuser, name="alternarsuperuser"),
+    path("alternarstaff/<id>", views.alternarstaff, name="alternarstaff"),
 ]

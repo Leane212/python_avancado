@@ -80,7 +80,7 @@
         <button class="btn me-md-2 " type="button" id="botao" data-bs-toggle="modal" data-bs-target="#login">Entre ou Cadastre-se</button>
         {% endif %}
     </div>
-    
+
     {% if not user.is_authenticated %}
       <div id = 'modal-novo-usuario' class="modal top-0 vh-100 row container-fluid" tabindex="-1">
         <div class="modal-dialog top-50 start-50 translate-middle m-0">
@@ -107,13 +107,12 @@
           </div>
         </div>      
       </div>
-    
       {% else %}
       <section id="modal-perfil" class="modal top-0 row align-content-center">
         <div class="modal-dialog col-10 col-lg-6 mx-auto bg-light rounded">
           <div class="modal-content p-4">
             <h2 class="text-center text-dark my-4"> Perfil </h2>
-            <form method="post" action="{% url 'editperfil' %}" class="row flex-column align-items-end">
+            <form method="post" action="{% url 'editperfil' user.id%}" class="row flex-column align-items-end">
                 {% csrf_token %}
                 <p>Usuário:</p>
                 <input type="text" readonly class="form-control-plaintext my-2" value="{{user.username}}">
@@ -126,9 +125,10 @@
                 <p>Email:</p>
                 {{formcadastro.email}}
                 <div class="col-auto">
-                    <a href='{% url 'deluser' user.id %}' type="button" class="my-3 text-danger px-3 py-2 link text-decoration-none"> Encerrar Conta </a>
+
+                    <a href='{% url 'deluser' user.id %}' type="button" class="my-3 text-danger px-3 py-2 link text-decoration-none"> Remover Conta </a>
                     <a type="button" class="btn my-3 btn-secondary px-3 py-2" data-bs-dismiss="modal"> Cancelar </a>
-                    <button type="submit" class="btn my-3 btn-success px-3 py-2"> Atualizar </button>
+                    <button type="submit" class="btn my-3 btn-success px-3 py-2"> Editar Perfil </button>
                 </div>
             </form>
           </div>
@@ -168,7 +168,9 @@
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'sobre' %}">Sobre</a>
           </li>
+  
           {% if user.is_superuser %}
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Produto
@@ -179,6 +181,11 @@
               <li><a class="dropdown-item" href="{% url 'cadastrar_marcas' %}">Cadastrar Marcas</a></li>
             </ul>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'adm' %}">Painel Administativo</a>
+          </li>
+
           {% endif %}
           
         </ul>

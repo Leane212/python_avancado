@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from lojaMiniaturas_app.forms import CategoriaForm, ContatoForm, MarcaForm, ProdutoForm, LoginForm, CadastroUsuario
 from lojaMiniaturas_app.models import Desconto, MensagemContato, Produto, Imagem
 from django.http import HttpResponseRedirect
@@ -7,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User 
+from django.contrib.auth.models import Permission, Group
+
 
 def home (request):
     produtos = Produto.objects.order_by('id')
@@ -103,10 +104,18 @@ def cadastrouser(request):
             if request.POST.get('password') != request.POST.get('confirmacao'):
                 form.add_error('password', 'As senhas devem ser iguais.')
             else:
+                permlist = []
+                for permissao in request.POST.getlist("permissao"):
+                    permlist.append(Permission.objects.get(id=permissao))
+                    
                 form = form.save(commit=False)
                 form.password = make_password(form.password)
                 form.save()
-    return HttpResponseRedirect(reverse('home'))
+                
+    form = CadastroUsuario()
+    contexto = {"form":form}
+    return render(request,"cadastro.html",contexto)
+    # return HttpResponseRedirect(reverse('home'))
 
 def promocao (request):
     promocoes = Desconto.objects.order_by('data_inicial')[:10]
@@ -119,6 +128,7 @@ def novidades (request):
     novidade = Produto.objects.order_by('-data_cadastro')[:2]
     context = {'novidade': novidade}
     return render(request, 'novidades.html', context)
+
 def deluser (request, id):
     user = User.objects.get(id=id)
     user.delete()
@@ -134,5 +144,69 @@ def editperfil (request):
         novo_usuario['username'] = usuario.username
         user = CadastroUsuario(instance=usuario, data=novo_usuario)
         if user.is_valid:
+            
+            permlist = []
+            for permissao in request.POST.getlist("permissao"):
+                permlist.append(Permission.objects.get(id=permissao))
+            user = user.save(commit=False)
+            user.password = make_password(user.password)
+            user.save()
+            user.user_permissions.set(permlist)
             user.save()
     return HttpResponseRedirect(reverse('home'))
+
+def adm(request):
+    if request.method == "GET" and request.user.is_superuser:
+        usuarios = User.objects.all;
+        contexto = {"usuarios":usuarios}
+        return render(request, "adm.html", contexto)
+    return HttpResponseRedirect(reverse('home'))
+
+def alternaractive(request,id):
+    usuario = User.objects.get(id = id)
+    usuario.is_active = not usuario.is_active
+    usuario.save()
+    return HttpResponseRedirect(reverse("adm"))
+
+#CRIAR
+# #def Usuario (user):
+    cpf = models.TextField()
+
+def alternarsuperuser(request,id):
+    usuario = User.objects.get(id = id)
+    usuario.is_superuser = not usuario.is_superuser
+    usuario.save()
+    return HttpResponseRedirect(reverse("adm"))
+
+
+def alternarstaff(request,id):
+    usuario = User.objects.get(id = id)
+    usuario.is_staff = not usuario.is_staff
+    usuario.save()
+    return HttpResponseRedirect(reverse("adm"))
+
+# esse é o def painel do professor
+def admusuario(request,id):
+    #ver ser ta altenticado e se é superuser 
+    if request.method == 'GET' and request.user.is_authenticated and request.user.is_superuser:
+     permissoes = Permission.objects.order_by('id')
+    permissoes_agrupadas = {}
+    for permissao in permissoes:
+        objeto = permissao.codename.split("_")
+        if objeto[1] not in permissoes_agrupadas:
+            permissoes_agrupadas[objeto[1]] = {permissao.name : permissao.id}
+        else:
+            permissoes_agrupadas[objeto[1]][permissao.name] = permissao.id
+            
+        
+    usuario = User.objects.get(id=id)
+    form_cadastro = CadastroUsuario(instance=usuario)
+    contexto = {
+    "usuario":usuario,
+    "permissoes":permissoes_agrupadas,
+    "formcadastro":form_cadastro,
+    "grupos": Group.objects.all(),
+    }
+    
+    return render(request,"admusuario.html",contexto)
+

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block conteudo%}
+<style>
+    .linha {
+        border-bottom: 2px solid rgba(2, 175, 175, 0.952);
+        
+    }
+    .texto-centralizado {
+        text-align: center;
+        font-size: 1.2em;
+        color: #333; 
+    }
+    #titulo{
+        font-size: 24px;
+        font-weight: bold;
+        color: rgba(2, 175, 175, 0.952);
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+<h4 id="titulo" class="container-fluid">PAINEL ADMINISTRATIVO</h4>
+    <div class="linha"></div>
+
+<a href="{% url 'cadastrouser' %}"> Adicionar Usuario</a>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome de Usuário</th>
+                <th>Email</th>
+                <th>Primeiro Nome</th>
+                <th>Sobrenome</th>
+                <th>Editar</th>
+                <th>Super Usuário</th>
+                <th>Ativo</th>
+                <th>Funcionários</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                
+                <td class="text-center"> <a href="{%url 'admusuario' usuario.id%}" class="btn btn-success">Editar</a> </td>
+
+
+                <td class="text-center">
+                    <a href="{% url 'alternarsuperuser' usuario.id %}" class="btn {% if usuario.is_superuser %}btn-success{% else %}btn-danger{% endif %}">
+                        {% if usuario.is_superuser %}
+                            Sim
+                        {% else %}
+                            Não
+                        {% endif %}
+                    </a>
+                </td>
+                
+                    
+                <td class="text-center"> <a href="{%url 'alternaractive' usuario.id%}" class="btn {% if usuario.is_active %}btn-success{% else %}btn-danger{% endif %}">
+                    {% if usuario.is_active %}
+                        Sim
+                    {%else%}
+                        Não
+                    {%endif%}
+                </a></td>
+
+
+                <td class="text-center"> <a href="{%url 'alternarstaff' usuario.id%}" class="btn {% if usuario.is_staff %}btn-success{% else %}btn-danger{% endif %}">
+                    {% if usuario.is_staff %}
+                        Sim
+                    {%else%}
+                        Não
+                    {%endif%}
+                </a></td>
+
+
+
+
+
+                <td class="text-center"> <a href="{%url 'deluser' usuario.id%}" class="btn btn-danger">Excluir Conta</a> </td>
+                
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock conteudo %}
