@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{%block conteudo%}
+<style> 
+  #titulo{
+      font-size: 24px;
+      font-weight: bold;
+      color: rgba(2, 175, 175, 0.952);
+      text-align: center;
+      padding: 10px;
+  }
+
+  .linha {
+      border-bottom: 5px solid rgba(2, 175, 175, 0.952); 
+  }
+  .formulario{
+      display; flex;
+      margin: 0 auto;
+      width:80%;
+      padding: 20px;
+      border-radiuns: 10px;
+      background-color: ;
+      height: 100%;
+      margin-bottom: 50px;
+  }
+</style> 
+<h4 id="titulo" class="container-fluid">CADASTRAR GRUPOS</h4>
+    <div class="linha"></div>
+        <div class ="formulario" style ="height: 25rem" >
+
+          <form action="{% url 'grupos' %}" method="post" class="my-4 container-fluid ">
+            {% csrf_token %}
+                
+                  <div class="col-md-12">
+                    {{ form.name }} 
+                  </div><br>
+
+          <div class="modal-footer">
+            <button type = 'submit' class="btn btn-outline-success d-flex justify-content-end" >Salvar</button>
+            <p>
+              <button type = 'button' class="btn btn-outline-success d-flex justify-content-end">Editar</button>
+            </p>
+          </div>
+        </form>
+      
+{%endblock conteudo%}

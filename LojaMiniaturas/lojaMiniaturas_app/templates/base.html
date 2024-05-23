@@ -68,7 +68,7 @@
 
       {% if user.is_authenticated %}
 
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn btn-secondary dropdown-toggle" id="botao" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Bem vindo, {{user.first_name}}
       </button>
         <ul class="dropdown-menu">
@@ -97,6 +97,7 @@
               </div>
               {{formcadastro.username}}
               {{formcadastro.email}}
+              {{formcadastro.cpf}}
               {{formcadastro.password}}
               <input type = "password" name ="confirmacao" placeholder="Confirmar Senha" class ="content my-2 p-2"></input>
                 <div class="modal-footer">
@@ -109,6 +110,8 @@
       </div>
     
       {% else %}
+      
+
       <section id="modal-perfil" class="modal top-0 row align-content-center">
         <div class="modal-dialog col-10 col-lg-6 mx-auto bg-light rounded">
           <div class="modal-content p-4">
@@ -125,6 +128,12 @@
                 </div>
                 <p>Email:</p>
                 {{formcadastro.email}}
+                <p>Cpf:</p>
+                {{formcadastro.cpf}}
+                {% if user.is_superuser %}
+                <p>Matricula:</p>
+                {{formcadastro.matricula}}
+                {% endif %}
                 <div class="col-auto">
                     <a href='{% url 'deluser' user.id %}' type="button" class="my-3 text-danger px-3 py-2 link text-decoration-none"> Encerrar Conta </a>
                     <a type="button" class="btn my-3 btn-secondary px-3 py-2" data-bs-dismiss="modal"> Cancelar </a>
@@ -133,8 +142,11 @@
             </form>
           </div>
         </div>
-      </section>        
-    {% endif %}
+      </section> 
+
+      
+      
+      {% endif %}
     <div id="logo">
       {% load static %}
       <img src="{% static 'logo.png' %}" alt="logo" class="img-responsive w-100 object-fit-cover img-container" height="400px" >
@@ -168,6 +180,20 @@
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'sobre' %}">Sobre</a>
           </li>
+          {% if user.is_superuser %}
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'painel' %}">Painel Administrativo</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Grupo
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'grupos' %}">Cadastrar Grupos</a></li>
+            </ul>
+          </li>
+          {% endif %}
           {% if user.is_superuser %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

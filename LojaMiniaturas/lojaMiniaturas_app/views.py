@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from lojaMiniaturas_app.forms import CategoriaForm, ContatoForm, MarcaForm, ProdutoForm, LoginForm, CadastroUsuario
-from lojaMiniaturas_app.models import Desconto, MensagemContato, Produto, Imagem
+from lojaMiniaturas_app.forms import CategoriaForm, ContatoForm, FormGrupo, MarcaForm, ProdutoForm, LoginForm, CadastroUsuario
+from lojaMiniaturas_app.models import Desconto, MensagemContato, Produto, Imagem, Usuario
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User, Permission, Group
 
 def home (request):
     produtos = Produto.objects.order_by('id')
@@ -33,7 +33,7 @@ def add_produtos(request):
         form = ProdutoForm(request.POST)
         if form.is_valid():
             form = form.save()
-            imagem = Imagem.objects.create(name = request.POST["imagem"], id_produto = form.id)
+            imagem = Imagem.objects.create(name = request.POST["imagem"], pr = form.id)
             imagem.save()
             return HttpResponseRedirect(reverse('home'))
     context = {'form':form}
@@ -61,6 +61,17 @@ def cadastrar_marcas(request):
             return HttpResponseRedirect(reverse('home'))
     context = {'form': form}
     return render(request, 'cadastrar_marcas.html', context)
+
+def cadastrar_grupos(request):
+    if request.method == "GET":
+        form = FormGrupo()
+    else:
+        form = FormGrupo(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('home'))
+    context = {'form': form}
+    return render(request, 'grupos.html', context)
 
 def contato(request):
     if request.method == 'POST':
@@ -96,6 +107,17 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+def cadastro_Usuario(request):
+    user = CadastroUsuario(request.POST,auto_id=False)
+    if user.is_valid():
+        if user.data.get('password') != user.data.get('confirmacao'):
+            user.add_error('password', 'As senhas devem ser iguais.')
+        else:
+            user = user.save(commit=False)
+            user.password = make_password(user.password)
+            user.save()
+    return user
+
 def cadastrouser(request):
     if request.method == 'POST':
         form = CadastroUsuario (request.POST)
@@ -108,6 +130,7 @@ def cadastrouser(request):
                 form.save()
     return HttpResponseRedirect(reverse('home'))
 
+
 def promocao (request):
     promocoes = Desconto.objects.order_by('data_inicial')[:10]
     context = {'promocoes': promocoes}
@@ -119,6 +142,7 @@ def novidades (request):
     novidade = Produto.objects.order_by('-data_cadastro')[:2]
     context = {'novidade': novidade}
     return render(request, 'novidades.html', context)
+
 def deluser (request, id):
     user = User.objects.get(id=id)
     user.delete()
@@ -136,3 +160,61 @@ def editperfil (request):
         if user.is_valid:
             user.save()
     return HttpResponseRedirect(reverse('home'))
+
+
+def caduser (request):
+    if request.method == 'POST' and request.user.is_superuser:
+        user = cadastro_Usuario(request)
+        permlist = []
+        for permissao in request.POST.getlist("permissao"):
+                permlist.append(Permission.objects.get(id=permissao))
+        user.user_permissions.set(permlist)
+
+        grupos = []
+        for grupo in request.POST.getlist("grupo"):
+                grupos.append(Group.objects.get(id=grupo))
+        print(grupos)
+        user.groups.set(grupos)
+
+        return HttpResponseRedirect(reverse('painel'))
+    return HttpResponseRedirect(reverse('home'))
+
+
+def painel (request):
+    if request.method == 'GET' and request.user.is_superuser:
+        permissoes = Permission.objects.order_by('id')
+        permissoes_agrupadas = {}
+        for permissao in permissoes:
+            objeto = permissao.codename.split("_")
+            if objeto[1] not in permissoes_agrupadas:
+                permissoes_agrupadas[objeto[1]] = {objeto[0] : permissao.id}
+            else:
+                permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+        contexto = context(request)
+        contexto['formcadastro'] = CadastroUsuario()
+        contexto['permissoes'] = permissoes_agrupadas
+        contexto['grupos'] = Group.objects.all()
+        contexto['users'] = Usuario.objects.order_by('first_name')
+        return render(request,'painel.html',contexto)
+    return HttpResponseRedirect(reverse('home'))
+
+def context (request):
+    if request.user.is_authenticated:
+        usuario = Usuario.objects.get(user_ptr_id = request.user.id)
+        request.user.matricula = usuario.matricula
+        request.user.cpf = usuario.cpf
+        return {
+            'formcadastro':CadastroUsuario(instance=usuario),        #perfil
+        }
+    else:
+        return {
+            'formulario':LoginForm(),                          #login
+        }
+    
+def toggleactive (request,id):
+    if request.method == 'GET' and request.user.is_superuser:
+        usuario = Usuario.objects.get(user_ptr_id=id)
+        usuario.is_active = not usuario.is_active
+        usuario.save()
+        return HttpResponseRedirect(reverse('painel'))
+    return HttpResponseRedirect(reverse('index'))

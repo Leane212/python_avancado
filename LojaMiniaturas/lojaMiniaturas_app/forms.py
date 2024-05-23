@@ -1,7 +1,7 @@
 from django import forms
-from lojaMiniaturas_app.models import Categoria, Marca, MensagemContato, Produto, Imagem
+from lojaMiniaturas_app.models import Categoria, Marca, MensagemContato, Produto, Imagem, Usuario
 from django.forms.widgets import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 ''''
 class DescontoForm (forms.ModelForm):
@@ -132,9 +132,9 @@ class LoginForm (forms.ModelForm):
         
 class CadastroUsuario(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'password', 'email', 'first_name', 'last_name']
-        widgets = {'email': EmailInput(), 'password':PasswordInput()}
+        model = Usuario
+        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'cpf', 'matricula']
+        widgets = {'email': EmailInput(), 'password':PasswordInput(), 'cpf':TextInput(),'matricula':TextInput()}
         
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -144,7 +144,8 @@ class CadastroUsuario(forms.ModelForm):
         )
         self.fields['last_name'].widget.attrs.update(
         {'placeholder':'Sobrenome',
-        'class' : 'form-control'}
+        'class' : 'form-control',
+        'autocomplete':'new-password'}
         )
         self.fields['username'].widget.attrs.update(
         {'placeholder':'Usuário',
@@ -158,3 +159,26 @@ class CadastroUsuario(forms.ModelForm):
         {'placeholder':'Senha',
         'class' : 'form-control'}
         )
+        self.fields['cpf'].widget.attrs.update(
+        {'placeholder':'CPF',
+        'class' : 'form-control'}
+        )
+        self.fields['matricula'].widget.attrs.update(
+        {'placeholder':'Matrícula',
+        'class' : 'form-control'}
+        )
+
+class FormGrupo(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name']
+              
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update(
+        {'placeholder':'Nome do Grupo',
+        'class' : 'form-control'}
+        )
+
+
+
