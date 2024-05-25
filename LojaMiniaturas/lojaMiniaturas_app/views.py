@@ -218,3 +218,94 @@ def toggleactive (request,id):
         usuario.save()
         return HttpResponseRedirect(reverse('painel'))
     return HttpResponseRedirect(reverse('index'))
+
+
+def editar_usuario(request, id):
+    
+    if request.user.is_authenticated and request.user.is_superuser:
+        permissoes = Permission.objects.order_by('id')
+        permissoes_agrupadas = {}
+        for permissao in permissoes:
+            objeto = permissao.codename.split("_")
+            if objeto[1] not in permissoes_agrupadas:
+                permissoes_agrupadas[objeto[1]] = {objeto[0]: permissao.id}
+            else:
+                permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+
+        usuario = User.objects.get(id=id)
+        form_usuario = CadastroUsuario(instance=usuario)
+        permissoes_usuario = usuario.user_permissions.values_list('id', flat=True)
+
+        contexto = {
+            "usuario": usuario,
+            "permissoes": permissoes_agrupadas,
+            "form_usuario": form_usuario,
+            "grupos": Group.objects.all(),
+            "permissoes_usuario": permissoes_usuario,
+        }
+
+        return render(request, "editar_usuario.html", contexto)
+    else:
+        return HttpResponseRedirect(reverse("home"))
+    
+def editar_usuario_painel(request, id):
+    if request.method == 'POST' and request.user.is_authenticated and request.user.is_superuser:
+        usuario = User.objects.get(id=id)
+        novo_usuario = request.POST.copy()
+        novo_usuario["password"] = usuario.password  # Keep the existing password
+        user_form = CadastroUsuario(instance=usuario, data=novo_usuario)
+
+        if user_form.is_valid():
+            user = user_form.save(commit=False)
+            user.password = usuario.password  
+            user.save()
+
+            # Prepare the permission list
+            permlist = []
+            permissoes = request.POST.getlist("permissoes")
+            for permissao in permissoes:
+                permlist.append(Permission.objects.get(id=permissao))
+
+            user.user_permissions.set(permlist)
+            user.save()
+
+            return HttpResponseRedirect(reverse('painel'))
+        else:
+            permissoes = Permission.objects.order_by('id')
+            permissoes_agrupadas = {}
+            for permissao in permissoes:
+                objeto = permissao.codename.split("_")
+                if objeto[1] not in permissoes_agrupadas:
+                    permissoes_agrupadas[objeto[1]] = {objeto[0]: permissao.id}
+                else:
+                    permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+
+            permissoes_usuario = usuario.user_permissions.values_list('id', flat=True)
+
+            contexto = {
+                "usuario": usuario,
+                "permissoes": permissoes_agrupadas,
+                "form_usuario": user_form,
+                "grupos": Group.objects.all(),
+                "permissoes_usuario": permissoes_usuario,
+            }
+            return render(request, "editar_usuario.html", contexto)
+
+    return HttpResponseRedirect(reverse('home'))
+
+def remover_usuario(request,id):
+    if request.user.is_authenticated and request.user.is_superuser:
+        user = User.objects.get(id=id)
+        user.delete()
+        return HttpResponseRedirect(reverse("painel"))
+    
+    return HttpResponseRedirect(reverse("home"))
+    
+def remover_produto(request,id):
+    if request.user.is_authenticated and request.user.is_superuser:
+        produto = Produto.objects.get(id=id)
+        produto.delete()
+        return HttpResponseRedirect(reverse("add_produto"))
+    
+    return HttpResponseRedirect(reverse("home"))
+    

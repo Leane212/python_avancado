@@ -19,6 +19,8 @@ urlpatterns = [
     path('painel/', views.painel, name='painel'),
     path('caduser/', views.caduser, name="caduser"),
     path('toggleactive/<id>', views.toggleactive, name="toggleactive"),
-    path('grupos', views.cadastrar_grupos, name="grupos")
+    path('grupos/', views.cadastrar_grupos, name="grupos"),
+    path('editar_usuario/<id>', views.editar_usuario, name="editar_usuario"),
+    path('editar_usuario_painel/<id>', views.editar_usuario_painel, name="editar_usuario_painel"),
+    path("remover_usuario/<id>",views.remover_usuario, name="remover_usuario")
 ]
-

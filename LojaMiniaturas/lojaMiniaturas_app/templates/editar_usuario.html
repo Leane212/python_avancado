@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h1>
+    oi
+</h1>
+<main>
+    <div id="modal-cadastro" class="modal" tabindex="-1">
+        <div class="modal-dialog position-absolute top-50 start-50 translate-middle w-75 w-lg-50">
+            <form method="post" action="{% url 'editar_usuario_painel' usuario.id %}" class="d-flex flex-column align-content-around m-2 gap-2">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        {{ formcadastro.first_name }}
+                    </div>
+                    <div class="col-6">
+                        {{ formcadastro.last_name }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ formcadastro.email }}
+                    </div>
+                    <div class="col-6">
+                        {{ formcadastro.username }}
+                    </div>
+                    <div class="col-6">
+                        {{ formcadastro.cpf }}
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <label for="permissoes" class="form-label">Permissões:</label>
+                    <table class="table table-bordered">
+                        <thead class="table-primary">
+                            <tr>
+                                <th scope="col">Permissão</th>
+                                <th scope="col">Adicionar</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Excluir</th>
+                                <th scope="col">Visualizar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, value in permissoes.items %}
+                                <tr>
+                                    <td>{{ key }}</td>
+                                    {% for itemkey, itemvalue in value.items %}
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="permissao" value="{{ itemvalue }}" id="permissao{{ key }}{{ itemkey }}">
+                                                <label class="form-check-label" for="permissao{{ key }}{{ itemkey }}"></label>
+                                            </div>
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex flex-row justify-content-around">
+                    <button type="submit" class="btn btn-primary px-5 py-2">Editar Perfil</button>
+                    <a class="btn btn-secondary" href="{% url 'painel' %}">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock conteudo %}
