@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lojaMiniaturas_app',
+    'rest_framework',
+    'api_app'
 ]
 
 MIDDLEWARE = [
